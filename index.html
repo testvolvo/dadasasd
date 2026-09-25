@@ -551,7 +551,10 @@ document.getElementById('toggle-color-panel').addEventListener('click', () => {
 
 function money(n) {
   n = Number(n || 0);
-  return '$' + n.toLocaleString('es-CL', {minimumFractionDigits: n % 1 ? 1 : 0, maximumFractionDigits: n % 1 ? 1 : 0});
+  // La app muestra valores en pesos enteros: redondear al peso más cercano.
+  // Ej.: 181.750 × 1,19 = 216.282,5 → $216.283.
+  const rounded = Math.round(n);
+  return '$' + rounded.toLocaleString('es-CL', {maximumFractionDigits: 0});
 }
 function numericPrice(value) {
   if (typeof value === 'number') return value;
